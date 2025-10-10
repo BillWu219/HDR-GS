@@ -4,8 +4,6 @@
 
 <p align="center"> <img src="fig/logo.png" width="110px"> </p>
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/hdr-gs-efficient-high-dynamic-range-novel/novel-view-synthesis-on-hdr-gs)](https://paperswithcode.com/sota/novel-view-synthesis-on-hdr-gs?p=hdr-gs-efficient-high-dynamic-range-novel)
-
 [![arXiv](https://img.shields.io/badge/paper-arxiv-179bd3)](https://arxiv.org/abs/2405.15125)
 [![video](https://img.shields.io/badge/video-demo-yellow)](https://www.youtube.com/watch?v=wtU7Kcwe7ck)
 [![zhihu](https://img.shields.io/badge/知乎-解读-yellow)](https://zhuanlan.zhihu.com/p/10016024329)
