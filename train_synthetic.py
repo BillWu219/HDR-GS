@@ -169,6 +169,11 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 gaussians.optimizer.step()
                 gaussians.optimizer.zero_grad(set_to_none = True)
 
+            if iteration == 5000:
+                gaussians.freeze_geometry()
+                progress_bar.set_postfix({"Stage II": "early freeze @5K"})
+
+
             if (iteration in checkpoint_iterations):
                 exp_logger.info("\n[ITER {}] Saving Checkpoint".format(iteration))
                 torch.save((gaussians.capture(), iteration), scene.model_path + "/chkpnt" + str(iteration) + ".pth")
@@ -286,9 +291,10 @@ def testing_report(exp_logger, iteration, scene : Scene, renderFunc, renderArgs,
                     save_image(min_max_norm(gt_image), os.path.join(align_debug_path_ldr_ne, 'gt_{}_ldr.png'.format(viewpoint.image_name)))
                     save_image(min_max_norm(image), os.path.join(align_debug_path_ldr_ne, 'render_{}_ldr.png'.format(viewpoint.image_name)))
                 save_image(min_max_norm(image_hdr), os.path.join(align_debug_path_hdr, 'render_{}_hdr.png'.format(viewpoint.image_name)))
-                # 把 image_hdr 存成 .exr 文件
-                # stx()
-                imageio.imwrite(os.path.join(align_debug_path_hdr, 'render_{}_hdr.exr'.format(viewpoint.image_name)), image_hdr_raw.permute(1, 2, 0).cpu().numpy())
+                try:
+                    imageio.imwrite(os.path.join(align_debug_path_hdr, 'render_{}_hdr.exr'.format(viewpoint.image_name)), image_hdr_raw.permute(1, 2, 0).cpu().numpy())
+                except Exception:
+                    pass
                 save_image(min_max_norm(gt_image_hdr), os.path.join(align_debug_path_hdr, 'gt_{}_hdr.png'.format(viewpoint.image_name)))
             
 
