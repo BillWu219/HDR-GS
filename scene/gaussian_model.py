@@ -204,6 +204,14 @@ class GaussianModel:
                                                     lr_delay_mult=training_args.tone_mapper_b_lr_delay_mult,
                                                     max_steps=training_args.tone_mapper_b_lr_max_steps)
 
+    def freeze_geometry(self):
+        self._xyz.requires_grad_(False)
+        self._scaling.requires_grad_(False)
+        self._rotation.requires_grad_(False)
+        self._features_dc.requires_grad_(False)
+        self._features_rest.requires_grad_(False)
+        self._opacity.requires_grad_(False)
+
     def update_learning_rate(self, iteration):
         ''' Learning rate scheduling per step '''
         for param_group in self.optimizer.param_groups:
